@@ -1,5 +1,6 @@
 package gl51.movie.service.impl
 
+import gl51.movie.data.Movie
 import gl51.movie.service.MovieClient
 import gl51.movie.service.MovieRegistry
 import io.micronaut.test.annotation.MockBean
@@ -36,7 +37,9 @@ class MovieClientImplTest extends Specification {
 
     @MockBean(MovieClientImpl)
     MovieClient client() {
-        Mock(MovieClient)
+        def mock = Mock(MovieClient)
+        mock.getMovieDetail("zhk") >> new Movie("zhk")
+        mock
     }
 
 }
