@@ -3,7 +3,6 @@ package gl51
 import gl51.data.MovieRequest
 import gl51.movie.data.Movie
 import gl51.movie.service.MovieClient
-import gl51.movie.service.MovieRegistry
 import gl51.movie.service.impl.MovieClientImpl
 import gl51.movie.service.impl.MovieRegistryImpl
 import io.micronaut.core.type.Argument
@@ -16,7 +15,6 @@ import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
 import io.micronaut.test.annotation.MockBean
 import io.reactivex.Flowable
-import io.reactivex.Maybe
 import spock.lang.AutoCleanup
 import spock.lang.Specification
 import spock.lang.Shared
@@ -35,7 +33,7 @@ class MovieControllerSpec extends Specification {
     @Inject
     MovieRegistryImpl registry
 
-    void "test index"() {
+    void "testIndex"() {
         given:
         Flowable flowable = client.retrieve(HttpRequest.GET("/movie"), Argument.listOf(Movie))
         def content = flowable.firstElement()
@@ -43,7 +41,7 @@ class MovieControllerSpec extends Specification {
         content.blockingGet() == []
     }
 
-    void "test film creation"() {
+    void "testFilmCreation"() {
         given:
         HttpResponse response = client.toBlocking().exchange(
                 HttpRequest.POST("/movie", new MovieRequest(imdbID: "zhk"))
